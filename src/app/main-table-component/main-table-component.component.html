@@ -1,0 +1,74 @@
+<div class="mat-elevation-z8">
+  <div class="col-sm-4 col-md-4" style="float:right">
+    <mat-form-field>
+      <mat-select #select (selectionChange)="applyFilter($event.value)"  [(value)]="selected" style="font-size:12px" placeholder="Launch Status:">
+        <mat-option value="4" (click)="getTableData()">
+          <a routerLink="/test/0">All Launches</a>
+        </mat-option>
+        <mat-option value="true">  
+          <a routerLink="/test/1">Success</a>
+        </mat-option>
+        <mat-option value="false">
+          <a routerLink="/test/2">Failures</a>
+        </mat-option>
+        <mat-option value="null">  
+          <a routerLink="/test/3">Upcoming</a>
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+  </div>
+  <br>
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="flight_number">
+      <th mat-header-cell *matHeaderCellDef style="border-top-left-radius:5px;"> No: </th>
+      <td mat-cell *matCellDef="let element"> {{element.flight_number}} </td>
+    </ng-container>
+    <ng-container matColumnDef="launch_date_utc">
+      <th mat-header-cell *matHeaderCellDef> Launched UTC </th>
+      <td mat-cell *matCellDef="let element"> {{element.launch_date_utc}} </td>
+    </ng-container>
+    <ng-container matColumnDef="launch_site">
+      <th mat-header-cell *matHeaderCellDef> Location </th>
+      <td mat-cell *matCellDef="let element"> {{element.launch_site.site_id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="mission_name">
+      <th mat-header-cell *matHeaderCellDef> Mission Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.mission_name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="orbit">
+      <th mat-header-cell *matHeaderCellDef> Orbit </th>
+      <td mat-cell *matCellDef="let element"> {{element.rocket.second_stage.payloads[0].orbit}} </td>
+    </ng-container>
+    <ng-container matColumnDef="launch_success">
+      <th mat-header-cell *matHeaderCellDef style="padding-left: 45px;"> Launch Status </th>
+      <mat-cell *matCellDef="let element" (click)="openMissionDialog(element)">
+        <ng-container *ngIf="element.launch_success == true">
+          <td mat-cell>
+            <button mat-flat-button id="success">Success</button>
+          </td>
+        </ng-container>
+        <ng-container *ngIf="element.launch_success == false">
+          <td mat-cell>
+            <button mat-flat-button id="failure">Failure</button>
+          </td>
+        </ng-container>
+        <ng-container *ngIf="element.upcoming == true">
+          <td mat-cell>
+            <button mat-flat-button id="upcoming">Upcoming</button>
+          </td>
+        </ng-container>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="rocket_name">
+      <th mat-header-cell *matHeaderCellDef style="border-top-right-radius:5px;"> Rocket </th>
+      <td mat-cell *matCellDef="let element"> {{element.rocket.rocket_name}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+    <mat-progress-bar mode="buffer"></mat-progress-bar>
+  </div>
+  <mat-paginator [pageSizeOptions]="[12]" showFirstLastButtons></mat-paginator>
+</div>
+
