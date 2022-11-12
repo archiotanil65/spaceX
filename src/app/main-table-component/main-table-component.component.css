@@ -8,10 +8,19 @@ table {
   font-size: 0.8em;
 }
 
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+::ng-deep.mat-form-field-infix{
+  width: 7em !important;
+}
+
 .mat-elevation-z8 {
   padding-left: 10em;
-  padding-top: 5em;
-  padding-top: 5em;
+  padding-top: 2em;
+  padding-bottom: 5em;
   padding-right: 10em;
 }
 
