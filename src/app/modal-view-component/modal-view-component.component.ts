@@ -6,6 +6,7 @@ import { MissionData } from "src/missionTableView";
 import { ModalMissionData } from "src/modalTableView";
 import { ViewChild } from "@angular/core";
 
+
 @Component({
   selector: "app-modal-view-component",
   templateUrl: "./modal-view-component.component.html",
@@ -16,6 +17,18 @@ export class ModalViewComponentComponent implements AfterViewInit {
   details: any = [];
   ELEMENT_DATA: ModalMissionData[] = [];
   displayedColumns: string[] = [
+    "Flight Number",
+    "Mission Name",
+    "Rocket Type",
+    "Rocket Name",
+    "Manufacturer",
+    "Nationality",
+    "Launch Data UTC",
+    "Payload Type",
+    "Orbit",
+    "Site Name",
+  ];
+  displayedColumns1: any[] = [
     "flight_number",
     "mission_name",
     "rocket_type",
@@ -25,7 +38,7 @@ export class ModalViewComponentComponent implements AfterViewInit {
     "launch_date_utc",
     "payload_type",
     "orbit",
-    "site_name",
+    "site_name"
   ];
   dataSource = this.ELEMENT_DATA;
   displayColumns: any;
@@ -37,14 +50,14 @@ export class ModalViewComponentComponent implements AfterViewInit {
 
   ngOnInit(): void {
     this.getTableDetails();
-    this.displayColumns = ["0"].concat(
-      this.dataSource.map((x) => x.flight_number.toString())
-    );
-    this.displayData = this.displayedColumns.map((x) => this.formatInputRow(x));
+    this.displayColumns = ["0"].concat(this.dataSource.map((x) => x.flight_number.toString()));
+    this.displayData = this.displayedColumns1.map((x) => this.formatInputRow(x));
+    
   }
 
   formatInputRow(row) {
     const output = {};
+    const array = [];
     output[0] = row;
     for (let i = 0; i < this.dataSource.length; ++i) {
       output[this.dataSource[i].flight_number] = this.dataSource[i][row];

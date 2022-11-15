@@ -12,8 +12,50 @@ table {
   overflow-y: auto;
 }
 
+.mat-dialog-content{
+  max-height: max-content;
+}
+
+.launch{
+  -ms-transform: rotate(360deg); /* IE 9 */
+  transform: rotate(360deg);
+}
+
+
+.logo{
+  float:left;
+  width:10%;
+  border:solid 1px black;
+}
+
+.rocketDetails{
+  float:left;
+  width:35%;
+  height:5em;
+  border:solid 1px black;
+}
+
+.launchStatus{
+  float:right;
+  width:35%;
+  border:solid 1px black;
+}
+
+
 .mat-elevation-z8 {
   box-shadow: none;
+  background-color: #F1F1F1;
+  border-radius: 10px;
+  border: solid 2px #F1F1F1;
+}
+
+mat-table {
+  display: flex;
+  flex-direction: row;
+}
+
+mat-row, mat-header-row {
+  flex-direction: column;
 }
 
 td.mat-cell {
